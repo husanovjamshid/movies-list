@@ -32,7 +32,7 @@ var newArray = [];
 elInput.addEventListener("keyup", (e) => {
   newArray = [];
   films.forEach((item) => {
-    if (item.title.toLocaleLowerCase().includes(elInput.value)) {
+    if (item.title.toLowerCase().includes(elInput.value.toLowerCase())) {
       newArray.push(item);
     }
   });

@@ -1,6 +1,7 @@
-var elList = document.querySelector(".row");
+var elList = document.querySelector(".js_row");
 var elInput = document.querySelector(".js_input");
 var elSelect = document.querySelector(".js_select");
+var elSort = document.querySelector(".sort_select");
 
 function filmsFunc(array, lists) {
   elList.innerHTML = "";
@@ -28,6 +29,7 @@ function filmsFunc(array, lists) {
 }
 filmsFunc(films, elList);
 
+// INPUT
 var newArray = [];
 elInput.addEventListener("keyup", (e) => {
   newArray = [];
@@ -40,6 +42,7 @@ elInput.addEventListener("keyup", (e) => {
   filmsFunc(newArray, elList);
 });
 
+// SET
 var categoryArr = [];
 var set = new Set();
 films.forEach((item) => {
@@ -48,6 +51,7 @@ films.forEach((item) => {
   });
 });
 
+// OPTION
 set.forEach((type) => {
   var newOption = document.createElement("option");
   newOption.setAttribute("value", type);
@@ -56,8 +60,8 @@ set.forEach((type) => {
   elSelect.appendChild(newOption);
 });
 
+// CATEGORY
 var catArray = [];
-
 elSelect.addEventListener("change", function () {
   catArray = [];
   if (elSelect.value != "All") {
@@ -70,4 +74,39 @@ elSelect.addEventListener("change", function () {
   } else {
     filmsFunc(films, elList);
   }
+});
+
+// SORT
+var ism = [];
+elSort.addEventListener("change", function () {
+  ism = [];
+
+  if (elSort.value != "All") {
+    if (elSort.value == "a_z") {
+      films.forEach((item) => {
+        ism.push(item);
+        ism.sort(
+          (a, b) =>
+            a.title.toLowerCase().charCodeAt(0) -
+            b.title.toLowerCase().charCodeAt(0)
+        );
+      });
+    } else {
+      films.forEach((item) => {
+        ism.push(item);
+        ism.sort(
+          (a, b) =>
+            b.title.toLowerCase().charCodeAt(0) -
+            a.title.toLowerCase().charCodeAt(0)
+        );
+      });
+    }
+
+    filmsFunc(ism, elList);
+  }
+  if (elSort.value == "all") {
+    filmsFunc(films, elList);
+  }
+  
+  
 });

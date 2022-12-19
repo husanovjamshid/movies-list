@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://cdn-gce.allmovie.com/images/ios/AppIcon72x72.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://cdn-gce.allmovie.com/images/ios/AppIcon114x114.png">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://cdn-gce.allmovie.com/images/ios/AppIcon144x144.png">
-
+    
     <link rel="shortcut icon" href="https://cdn-gce.allmovie.com/images/favicon.ico" type="image/x-icon" />
     <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss" />
     <title>Movies</title>
@@ -53,11 +53,24 @@
     
     <main>
         <div class="container">
-            <select class="form-select mt-5 js_select" aria-label="Default select example">
-                <option selected>All</option>
+            <div class="row">
+                <div class="col-md-6 col-lg-6">
+                    <h3>Category</h3>
+                    <select class="form-select mt-2 js_select" aria-label="Default select example">
+                        <option selected>All</option>
+                    </select>
+                </div>
 
-              </select>
-            <div class="row g-4">
+                <div class="col-md-6 col-lg-6 sort">
+                    <h3>Sort A to Z</h3>
+                    <select class="form-select sort_select" aria-label="Default select example">
+                        <option selected value="all" >All</option>
+                        <option value="a_z">A-Z</option>
+                        <option value="z_a">Z-A</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row g-4 js_row">
                 
             </div>
         </div>

@@ -16,7 +16,7 @@ body {
 
 .navbar {
   padding: 20px 0;
-  background-color: #222933;
+  background-color: #161d25;
 }
 
 .navbar-brand {
@@ -187,5 +187,56 @@ input::placeholder {
 
 .fa-trash {
   cursor: pointer;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.dark__mode {
+  color: #fff;
+  font-size: 20px;
+  margin-left: auto;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.light {
+  background-color: rgba(212, 205, 205, 0.925) !important;
+}
+
+.light .navbar {
+  background-color: rgba(212, 205, 205, 0.925) !important;
+}
+
+.light a {
+  color: #333 !important;
+}
+
+.light h3 {
+  color: #333 !important;
+}
+
+.light select {
+  background-color: rgba(212, 205, 205, 0.925) !important;
+  color: #333 !important;
+}
+
+.light input {
+  background-color: rgba(212, 205, 205, 0.925) !important;
+  color: #333 !important;
+}
+
+.light input::placeholder {
+  color: #333 !important;
+}
+
+.light option {
+  color: #333 !important;
+}
+
+.light .dark__mode {
+  color: #333 !important;
+}
+
+.light .fa-search {
+  color: #333 !important
 }

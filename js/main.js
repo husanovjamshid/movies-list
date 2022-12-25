@@ -4,15 +4,42 @@ var elSelect = document.querySelector(".js_select");
 var elSort = document.querySelector(".sort_select");
 var elLists = document.querySelector(".js-lists");
 var elBookmark = document.querySelector(".js-bookmark");
+var elDark = document.querySelector(".dark__mode");
+var elNavbar = document.querySelector(".navbar");
+
+let theme = false;
+elDark.addEventListener("click", function () {
+  theme = !theme;
+
+  let bg = theme ? "dark" : "light";
+  window.localStorage.setItem("theme", bg);
+  filmsDark()
+});
+
+function filmsDark() {
+  if (window.localStorage.getItem("theme") == "light") {
+    // elNavbar.style.backgroundColor = "rgba(212, 205, 205, 0.925)";
+    document.body.classList.add('light')
+  }
+  if (window.localStorage.getItem("theme") == "dark") {
+    document.body.classList.remove('light')
+    document.body.style.backgroundColor = "#161d25";
+    elNavbar.style.backgroundColor = "#161d25";
+  }
+}
+filmsDark()
 
 function filmsFunc(array, lists) {
   elList.innerHTML = "";
 
   array.forEach((item) => {
     var newCol = document.createElement("div");
-    newCol.setAttribute("class", "col-sm-12 col-md-6 col-lg-4 position-relative");
-    let book = document.createElement("i");
-    book.setAttribute("class", "fa-regular fa-bookmark js-bookmark");
+    newCol.setAttribute(
+      "class",
+      "col-sm-12 col-md-6 col-lg-4 position-relative"
+    );
+    let bookMarkSelect = document.createElement("i");
+    bookMarkSelect.setAttribute("class", "fa-regular fa-bookmark js-bookmark");
     // console.log(book);
 
     newCol.innerHTML = `
@@ -35,9 +62,8 @@ function filmsFunc(array, lists) {
           </div>
           `;
 
-    book.dataset.filmId = item.id;
-    // console.log(book);
-    newCol.appendChild(book);
+    bookMarkSelect.dataset.filmId = item.id;
+    newCol.appendChild(bookMarkSelect);
 
     lists.appendChild(newCol);
   });
@@ -49,17 +75,19 @@ function bookFunc(array, node) {
 
   array.forEach((item) => {
     let bookItem = document.createElement("li");
-    bookItem.setAttribute("class", "list-group-item d-flex justify-content-between align-items-center");
-    let bookBtn = document.createElement('i')
-    bookBtn.setAttribute('class', 'fa-solid fa-trash text-danger')
+    bookItem.setAttribute(
+      "class",
+      "list-group-item d-flex justify-content-between align-items-center"
+    );
+    let bookBtn = document.createElement("i");
+    bookBtn.setAttribute("class", "fa-solid fa-trash text-danger");
     bookItem.textContent = item.title;
-    bookBtn.dataset.bookmarkId = item.id
+    bookBtn.dataset.bookmarkId = item.id;
 
-    bookItem.appendChild(bookBtn)
+    bookItem.appendChild(bookBtn);
     node.appendChild(bookItem);
     window.localStorage.setItem("bookList", JSON.stringify(bookList));
   });
-
 }
 
 let localData = JSON.parse(window.localStorage.getItem("bookList"));
@@ -69,13 +97,12 @@ elList.addEventListener("click", (evt) => {
   if (evt.target.matches(".js-bookmark")) {
     let filmId = evt.target.dataset.filmId;
     let filmIndex = films.find((item) => item.id == filmId);
-    // console.log(filmIndex);
+
     let obj = {
-      id: new Date() ,
-      title: filmIndex.title
-    }
+      id: new Date(),
+      title: filmIndex.title,
+    };
     bookList.push(obj);
-    console.log(bookList);
     bookFunc(bookList, elLists);
   }
 });
@@ -84,7 +111,7 @@ elLists.addEventListener("click", (evt) => {
   if (evt.target.matches(".fa-trash")) {
     let filmId = evt.target.dataset.bookmarkId;
     let filmIndex = films.findIndex((item) => item.id == filmId);
-    bookList.splice(filmIndex, 1)
+    bookList.splice(filmIndex, 1);
     bookFunc(bookList, elLists);
     console.log(filmIndex);
   }
@@ -122,7 +149,7 @@ set.forEach((type) => {
 });
 
 // CATEGORY
-var catArray = JSON.parse(window.localStorage.getItem('catArray')) || [];
+var catArray = JSON.parse(window.localStorage.getItem("catArray")) || [];
 elSelect.addEventListener("change", function () {
   catArray = [];
   if (elSelect.value != "All") {
@@ -136,7 +163,7 @@ elSelect.addEventListener("change", function () {
     filmsFunc(films, elList);
   }
 
-  window.localStorage.setItem('catArray', JSON.stringify(catArray))
+  window.localStorage.setItem("catArray", JSON.stringify(catArray));
 });
 
 // SORT

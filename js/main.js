@@ -2,32 +2,93 @@ var elList = document.querySelector(".js_row");
 var elInput = document.querySelector(".js_input");
 var elSelect = document.querySelector(".js_select");
 var elSort = document.querySelector(".sort_select");
+var elLists = document.querySelector(".js-lists");
+var elBookmark = document.querySelector(".js-bookmark");
 
 function filmsFunc(array, lists) {
   elList.innerHTML = "";
+
   array.forEach((item) => {
     var newCol = document.createElement("div");
-    newCol.setAttribute("class", "col-sm-12 col-md-6 col-lg-4");
+    newCol.setAttribute("class", "col-sm-12 col-md-6 col-lg-4 position-relative");
+    let book = document.createElement("i");
+    book.setAttribute("class", "fa-regular fa-bookmark js-bookmark");
+    // console.log(book);
 
     newCol.innerHTML = `
           <div class="outer">
               <div class="inner">
-                  <div class="innerinner"><img src="${item.poster}"/>
-                      <h4 class="mt-2">${item.title}</h4>
+                  <div class="card__inner">
+                  <img src="${item.poster}"/>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mt-3">${item.title}</h4>
+                        <h4 class="mt-3 bookTitle"></h4>
+                        
+                      </div>
                       <div class="level">   
                           <p>${item.genres}</p>
                       </div>
                       <p class="text-white overflow-hidden">${item.overview}</p>
-                      <button>More</button>
+                      <button class="moreBtn">More</button>
                   </div>
               </div>
           </div>
           `;
 
+    book.dataset.filmId = item.id;
+    // console.log(book);
+    newCol.appendChild(book);
+
     lists.appendChild(newCol);
   });
 }
 filmsFunc(films, elList);
+
+function bookFunc(array, node) {
+  node.innerHTML = "";
+
+  array.forEach((item) => {
+    let bookItem = document.createElement("li");
+    bookItem.setAttribute("class", "list-group-item d-flex justify-content-between align-items-center");
+    let bookBtn = document.createElement('i')
+    bookBtn.setAttribute('class', 'fa-solid fa-trash text-danger')
+    bookItem.textContent = item.title;
+    bookBtn.dataset.bookmarkId = item.id
+
+    bookItem.appendChild(bookBtn)
+    node.appendChild(bookItem);
+    window.localStorage.setItem("bookList", JSON.stringify(bookList));
+  });
+
+}
+
+let localData = JSON.parse(window.localStorage.getItem("bookList"));
+let bookList = localData || [];
+
+elList.addEventListener("click", (evt) => {
+  if (evt.target.matches(".js-bookmark")) {
+    let filmId = evt.target.dataset.filmId;
+    let filmIndex = films.find((item) => item.id == filmId);
+    // console.log(filmIndex);
+    let obj = {
+      id: new Date() ,
+      title: filmIndex.title
+    }
+    bookList.push(obj);
+    console.log(bookList);
+    bookFunc(bookList, elLists);
+  }
+});
+
+elLists.addEventListener("click", (evt) => {
+  if (evt.target.matches(".fa-trash")) {
+    let filmId = evt.target.dataset.bookmarkId;
+    let filmIndex = films.findIndex((item) => item.id == filmId);
+    bookList.splice(filmIndex, 1)
+    bookFunc(bookList, elLists);
+    console.log(filmIndex);
+  }
+});
 
 // INPUT
 var newArray = [];
@@ -61,7 +122,7 @@ set.forEach((type) => {
 });
 
 // CATEGORY
-var catArray = [];
+var catArray = JSON.parse(window.localStorage.getItem('catArray')) || [];
 elSelect.addEventListener("change", function () {
   catArray = [];
   if (elSelect.value != "All") {
@@ -74,6 +135,8 @@ elSelect.addEventListener("change", function () {
   } else {
     filmsFunc(films, elList);
   }
+
+  window.localStorage.setItem('catArray', JSON.stringify(catArray))
 });
 
 // SORT
@@ -107,6 +170,6 @@ elSort.addEventListener("change", function () {
   if (elSort.value == "all") {
     filmsFunc(films, elList);
   }
-  
-  
 });
+
+bookFunc(bookList, elLists);

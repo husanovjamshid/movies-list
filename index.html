@@ -13,10 +13,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss" />
     <title>Movies</title>
     <!-- Font Awesome -->
-    <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    rel="stylesheet"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Google Fonts -->
     <link
     href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
@@ -53,16 +50,16 @@
     
     <main>
         <div class="container">
-            <div class="row">
+            <div class="row mt-5">
                 <div class="col-md-6 col-lg-6">
-                    <h3>Category</h3>
+                    <h3 class="text-white">Category</h3>
                     <select class="form-select mt-2 js_select" aria-label="Default select example">
                         <option selected>All</option>
                     </select>
                 </div>
 
                 <div class="col-md-6 col-lg-6 sort">
-                    <h3>Sort A to Z</h3>
+                    <h3 class="text-white">Sort A to Z</h3>
                     <select class="form-select sort_select" aria-label="Default select example">
                         <option selected value="all" >All</option>
                         <option value="a_z">A-Z</option>
@@ -70,8 +67,19 @@
                     </select>
                 </div>
             </div>
-            <div class="row g-4 js_row">
+            <div class="row mt-5">
+                <div class="colsm-12 col-md-3 col-lg-3">
+                    <h3 class="text-white">Bookmark Lists</h3>
+                    <ul class="list-group js-lists mb-4">
+                    
+                        
+                    </ul>
+                </div>
+                <div class="colsm-12 col-md-9 col-lg-9">
+                    <div class="row g-4 js_row">
                 
+                    </div>
+                </div>
             </div>
         </div>
     </main>

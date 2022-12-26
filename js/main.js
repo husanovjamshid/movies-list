@@ -97,12 +97,21 @@ elList.addEventListener("click", (evt) => {
   if (evt.target.matches(".js-bookmark")) {
     let filmId = evt.target.dataset.filmId;
     let filmIndex = films.find((item) => item.id == filmId);
+    let filmIndex1 = films.findIndex((item) => item.id == filmId);
 
+    
     let obj = {
       id: new Date(),
       title: filmIndex.title,
     };
+
     bookList.push(obj);
+    // let a = bookList[filmIndex1].title
+    // if (a == filmIndex.title) {
+    //   console.log('as');
+    //   return
+    // }
+    // console.log(filmIndex.title);
     bookFunc(bookList, elLists);
   }
 });
